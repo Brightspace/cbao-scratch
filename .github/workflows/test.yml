@@ -7,6 +7,6 @@ jobs:
     runs-on: [self-hosted, Linux, AWS]
     steps:
       - id: output
-        run: echo "::set-output name=test::testtest"
+        run: echo "::set-output name=test::"
       - if: steps.output.outputs.test
-        run: echo "non-empty string is true"
+        run: echo "empty string is false"

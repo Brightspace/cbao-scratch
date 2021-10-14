@@ -1,0 +1,12 @@
+name: test
+
+on: push
+
+jobs:
+  test:
+    runs-on: [self-hosted, Linux, AWS]
+    steps:
+      - id: output
+        run: echo "::set-output name=test::testtest"
+      - if: steps.output.outputs.test
+        run: echo "non-empty string is true"

@@ -7,4 +7,6 @@ jobs:
     runs-on: [self-hosted, Linux, AWS]
     steps:
       - if: toJson(fromJson('{"nothing":"nono"}').resource_changes)
-        run: echo "not working"
+        env:
+          LOOK: ${{ toJson(fromJson('{"nothing":"nono"}').resource_changes) }}
+        run: echo "$LOOK"

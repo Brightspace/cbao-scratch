@@ -6,7 +6,5 @@ jobs:
   test:
     runs-on: [self-hosted, Linux, AWS]
     steps:
-      - id: output
-        run: echo "::set-output name=test::"
-      - if: steps.output.outputs.test
-        run: echo "empty string is false"
+      - if: toJson(fromJson('{"nothing":"nono"}').resource_changes)
+        run: echo "not working"

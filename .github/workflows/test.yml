@@ -6,7 +6,7 @@ jobs:
   test:
     runs-on: [self-hosted, Linux, AWS]
     steps:
-      - if: fromJson('{"nothing":"nono"}').resource_changes == null
+      - if: fromJson('{"nothing":"nono"}').resource_changes != null
         env:
           LOOK: ${{ fromJson('{"nothing":"nono"}').resource_changes == null }}
         run: |

@@ -8,6 +8,6 @@ jobs:
     steps:
       - if: fromJson('{"nothing":"nono"}').resource_changes == null
         env:
-          LOOK: ${{ toJson(fromJson('{"nothing":"nono"}').resource_changes) }}
+          LOOK: ${{ fromJson('{"nothing":"nono"}').resource_changes == null }}
         run: |
           echo "failure: $LOOK"

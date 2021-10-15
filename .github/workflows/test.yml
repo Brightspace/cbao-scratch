@@ -8,24 +8,24 @@ jobs:
     steps:
       - if: fromJson('{"a":[]}').b[0] && always()
         env:
-          LOOK: ${{ fromJson('{"a":[]}').b[0] && always() }}
+          LOOK: ${{ fromJson('{"a":[]}').b[0] }}
         run: |
           echo "failure: $LOOK"
 
       - if: fromJson('{"b":[]}').b[0] && always()
         env:
-          LOOK: ${{ fromJson('{"b":[]}').b[0] && always() }}
+          LOOK: ${{ fromJson('{"b":[]}').b[0] }}
         run: |
           echo "failure: $LOOK"
 
       - if: fromJson('{"b":[{"x":"y"}]}').b[0] && always()
         env:
-          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}').b[0] && always() }}
+          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}').b[0] }}
         run: |
           echo "failure: $LOOK"
 
       - if: fromJson('{"b":[{"x":"y"}]}') && always()
         env:
-          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}') && always() }}
+          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}') }}
         run: |
           echo "failure: $LOOK"

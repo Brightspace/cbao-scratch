@@ -7,10 +7,14 @@ jobs:
     runs-on: [self-hosted, Linux, AWS]
     steps:
       - id: first
-        run: echo "::set-output name=a::aaa"
-
-      - if: contains(fromJson('["a", "b"]'), 'c')
         env:
-          LOOK: ${{ steps.first.outputs.b }}
+          VAR: ${{ fromJson('{"a"}').b }}
+        run: |
+          echo "$VAR"
+          echo "::set-output name=var::$VAR"
+
+      - if: steps.first.outputs.var
+        env:
+          LOOK: ${{ steps.first.outputs.var }}
         run: |
           echo "failure: $LOOK"

@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       
     runs-on: [self-hosted, Linux, AWS]
-    environment: ${{ matrix.environment }}
+    environment: '${{ matrix.environment }}'
     steps:
       - env:
           OUT: ${{ matrix.out }}

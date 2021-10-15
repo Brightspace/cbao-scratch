@@ -8,7 +8,7 @@ jobs:
     steps:
       - id: first
         env:
-          VAR: ${{ fromJson('{"a"}').b }}
+          VAR: ${{ fromJson('{"a":"aaa"}').b }}
         run: |
           echo "$VAR"
           echo "::set-output name=var::$VAR"

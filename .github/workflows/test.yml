@@ -4,7 +4,18 @@ on: push
 
 jobs:
   test:
+    strategy:
+      matrix:
+        include:
+          - environment: null
+            out: 'true null'
+          - environment: 'null'
+            out: 'string null'
+      fail-fast: false
+      
     runs-on: [self-hosted, Linux, AWS]
-    environment: ${{ fromJson('null') }}
+    environment: ${{ matrix.environment }}
     steps:
-      - run: echo ha
+      - env:
+          OUT: ${{ matrix.out }}
+        run: echo "$OUT"

@@ -6,15 +6,20 @@ jobs:
   test:
     runs-on: [self-hosted, Linux, AWS]
     steps:
-      - id: first
+      - if: fromJson('{"a":[]}')[0] && always()
         env:
-          VAR: ${{ fromJson('{"a":"aaa"}').b }}
+          LOOK: ${{ fromJson('{"a":[]}')[0] }}
         run: |
-          echo "$VAR"
-          echo "::set-output name=var::$VAR"
+          echo "failure: $LOOK"
 
-      - if: fromJson('{"b":[]}').b
+      - if: fromJson('{"b":[]}')[0] && always()
         env:
-          LOOK: ${{ fromJson('{"b":[]}').b }}
+          LOOK: ${{ fromJson('{"b":[]}')[0] }}
+        run: |
+          echo "failure: $LOOK"
+
+      - if: fromJson('{"b":[{"x":"y"}]}')[0] && always()
+        env:
+          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}')[0] }}
         run: |
           echo "failure: $LOOK"

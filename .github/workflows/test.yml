@@ -9,7 +9,7 @@ jobs:
       - id: first
         run: echo "::set-output name=a::aaa"
 
-      - if: contains(fromJson('["a", "b"]'), 'a')
+      - if: contains(fromJson('["a", "b"]'), 'c')
         env:
           LOOK: ${{ steps.first.outputs.b }}
         run: |

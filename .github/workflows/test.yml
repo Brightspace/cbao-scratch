@@ -6,20 +6,26 @@ jobs:
   test:
     runs-on: [self-hosted, Linux, AWS]
     steps:
-      - if: fromJson('{"a":[]}')[0] && always()
+      - if: fromJson('{"a":[]}').b[0] && always()
         env:
-          LOOK: ${{ fromJson('{"a":[]}')[0] }}
+          LOOK: ${{ fromJson('{"a":[]}').b[0] && always() }}
         run: |
           echo "failure: $LOOK"
 
-      - if: fromJson('{"b":[]}')[0] && always()
+      - if: fromJson('{"b":[]}').b[0] && always()
         env:
-          LOOK: ${{ fromJson('{"b":[]}')[0] }}
+          LOOK: ${{ fromJson('{"b":[]}').b[0] && always() }}
         run: |
           echo "failure: $LOOK"
 
-      - if: fromJson('{"b":[{"x":"y"}]}')[0] && always()
+      - if: fromJson('{"b":[{"x":"y"}]}').b[0] && always()
         env:
-          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}')[0] }}
+          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}').b[0] && always() }}
+        run: |
+          echo "failure: $LOOK"
+
+      - if: fromJson('{"b":[{"x":"y"}]}') && always()
+        env:
+          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}') && always() }}
         run: |
           echo "failure: $LOOK"

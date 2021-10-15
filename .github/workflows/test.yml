@@ -6,8 +6,11 @@ jobs:
   test:
     runs-on: [self-hosted, Linux, AWS]
     steps:
-      - if: fromJson('{"nothing":"nono"}').resource_changes != null
+      - id: first
+        run: echo "::set-output name=a::aaa"
+
+      - if: steps.first.outputs.b
         env:
-          LOOK: ${{ fromJson('{"nothing":"nono"}').resource_changes == null }}
+          LOOK: ${{ steps.first.outputs.b }}
         run: |
           echo "failure: $LOOK"

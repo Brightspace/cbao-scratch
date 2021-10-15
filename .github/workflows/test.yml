@@ -5,6 +5,6 @@ on: push
 jobs:
   test:
     runs-on: [self-hosted, Linux, AWS]
-    environment: 'null'
+    environment: ${{ fromJson('null') }}
     steps:
       - run: echo ha

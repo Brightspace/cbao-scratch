@@ -5,27 +5,6 @@ on: push
 jobs:
   test:
     runs-on: [self-hosted, Linux, AWS]
+    environment: ""
     steps:
-      - if: fromJson('{"a":[]}').b[0] && always()
-        env:
-          LOOK: ${{ fromJson('{"a":[]}').b[0] }}
-        run: |
-          echo "failure: $LOOK"
-
-      - if: fromJson('{"b":[]}').b[0] && always()
-        env:
-          LOOK: ${{ fromJson('{"b":[]}').b[0] }}
-        run: |
-          echo "failure: $LOOK"
-
-      - if: fromJson('{"b":[{"x":"y"}]}').b[0] && always()
-        env:
-          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}').b[0] }}
-        run: |
-          echo "failure: $LOOK"
-
-      - if: fromJson('{"b":[{"x":"y"}]}') && always()
-        env:
-          LOOK: ${{ fromJson('{"b":[{"x":"y"}]}') }}
-        run: |
-          echo "failure: $LOOK"
+      - run: echo ha

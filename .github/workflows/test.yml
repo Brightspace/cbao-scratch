@@ -13,8 +13,8 @@ jobs:
           echo "$VAR"
           echo "::set-output name=var::$VAR"
 
-      - if: fromJson('{"a":"aaa"}').b
+      - if: fromJson('{"b":[]}').b
         env:
-          LOOK: ${{ fromJson('{"a":"aaa"}').b }}
+          LOOK: ${{ fromJson('{"b":[]}').b }}
         run: |
           echo "failure: $LOOK"

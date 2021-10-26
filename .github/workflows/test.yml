@@ -10,7 +10,7 @@ jobs:
         uses: Brightspace/third-party-actions@actions/checkout
 
       - id: plan
-        run: ${{ github.workspace }}/plan.sh
+        run: bash ${{ github.workspace }}/plan.sh
 
       - env:
           PLAN: ${{ steps.plan.outputs.plan_json }}

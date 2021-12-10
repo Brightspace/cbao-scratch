@@ -21,14 +21,20 @@ jobs:
 
   staging:
     needs: dev
-    if: github.ref == 'refs/heads/main' && (github.event.inputs.environment == '' || github.event.inputs.environment == 'staging')
+    if: |
+      github.ref == 'refs/heads/main'
+      && (github.event.inputs.environment == '' || github.event.inputs.environment == 'staging')
+      && (needs.dev.result == 'success' || needs.dev.result == 'skipped')
     runs-on: [self-hosted, Linux, AWS]
     steps:
       - run: echo staging
 
   prod:
     needs: staging
-    if: github.ref == 'refs/heads/main' && github.event.inputs.environment == '' || github.event.inputs.environment == 'prod'
+    if: |
+      github.ref == 'refs/heads/main'
+      && (github.event.inputs.environment == '' || github.event.inputs.environment == 'prod')
+      && (needs.staging.result == 'success' || needs.staging.result == 'skipped')
     runs-on: [self-hosted, Linux, AWS]
     steps:
       - run: echo prod

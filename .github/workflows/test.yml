@@ -28,7 +28,7 @@ jobs:
       )
     runs-on: [self-hosted, Linux, AWS]
     steps:
-      - run: echo 1
+      - run: exit 1
 
   prod:
     needs: [dev, staging]

@@ -18,6 +18,7 @@ jobs:
     env:
       ABC: '123'
     steps:
+      - uses: Brightspace/third-party-actions@actions/checkout
       - uses: ./.github/actions/set-env-var
       - run: echo "$ABC"
 
@@ -32,6 +33,7 @@ jobs:
     env:
       ABC: 'abc'
     steps:
+      - uses: Brightspace/third-party-actions@actions/checkout
       - uses: ./.github/actions/set-env-var
       - run: echo "$ABC"
 
@@ -44,5 +46,6 @@ jobs:
       )
     runs-on: [self-hosted, Linux, AWS]
     steps:
+      - uses: Brightspace/third-party-actions@actions/checkout
       - uses: ./.github/actions/set-env-var
       - run: echo "$ABC"

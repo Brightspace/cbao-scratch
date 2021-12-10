@@ -14,7 +14,7 @@ on:
 jobs:
   dev:
     if: github.event.inputs == null || github.event.inputs.environment == 'dev'
-    runs-on: [self-hosted, Linux, AWS]
+    runs-on: ubuntu-latest
     env:
       ABC: '123'
     steps:
@@ -29,7 +29,7 @@ jobs:
         (github.event.inputs == null && needs.dev.result == 'success') ||
         (github.event.inputs.environment == 'staging' && always())
       )
-    runs-on: [self-hosted, Linux, AWS]
+    runs-on: ubuntu-latest
     env:
       ABC: 'abc'
     steps:
@@ -44,7 +44,7 @@ jobs:
         (github.event.inputs == null && needs.staging.result == 'success') ||
         (github.event.inputs.environment == 'prod' && always())
       )
-    runs-on: [self-hosted, Linux, AWS]
+    runs-on: ubuntu-latest
     steps:
       - uses: Brightspace/third-party-actions@actions/checkout
       - uses: ./.github/actions/set-env-var

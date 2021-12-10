@@ -31,10 +31,10 @@ jobs:
       - run: exit 1
 
   prod:
-    needs: [dev, staging]
+    needs: staging
     if: |
       github.ref == 'refs/heads/main' && (
-        (github.event.inputs.environment == '' && needs.dev.result == 'success') ||
+        (github.event.inputs.environment == '' && needs.staging.result == 'success') ||
         (github.event.inputs.environment == 'prod' && always())
       )
     runs-on: [self-hosted, Linux, AWS]

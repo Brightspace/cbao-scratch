@@ -1,18 +1,34 @@
 name: test
 
-on: push
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "which"
+        required: false
+        type: choice
+        default: ""
+        options: [dev, staging, prod]
 
 jobs:
-  test:
+  dev:
+    if: github.event.inputs.environment == '' || github.event.inputs.environment == 'dev'
     runs-on: [self-hosted, Linux, AWS]
     steps:
-      - name: checkout
-        uses: Brightspace/third-party-actions@actions/checkout
+      - run: echo dev
 
-      - id: plan
-        run: bash ${{ github.workspace }}/plan.sh
+  staging:
+    needs: dev
+    if: github.ref == 'refs/heads/master' && (github.event.inputs.environment == '' || github.event.inputs.environment == 'staging')
+    runs-on: [self-hosted, Linux, AWS]
+    steps:
+      - run: echo staging
 
-      - env:
-          PLAN: ${{ steps.plan.outputs.plan_json }}
-        run: |
-          echo "${PLAN}"
+  prod:
+    needs: staging
+    if: github.ref == 'refs/heads/master' && github.event.inputs.environment == '' || github.event.inputs.environment == 'prod'
+    runs-on: [self-hosted, Linux, AWS]
+    steps:
+      - run: echo prod

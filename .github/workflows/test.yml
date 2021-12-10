@@ -24,7 +24,8 @@ jobs:
     if: |
       github.ref == 'refs/heads/main'
       && (github.event.inputs.environment == '' || github.event.inputs.environment == 'staging')
-      && (needs.dev.result == 'success' || needs.dev.result == 'skipped')
+      && ( needs.dev.result == 'success' || needs.dev.result == 'skipped')
+      && always()
     runs-on: [self-hosted, Linux, AWS]
     steps:
       - run: echo staging
@@ -35,6 +36,7 @@ jobs:
       github.ref == 'refs/heads/main'
       && (github.event.inputs.environment == '' || github.event.inputs.environment == 'prod')
       && (needs.staging.result == 'success' || needs.staging.result == 'skipped')
+      && always()
     runs-on: [self-hosted, Linux, AWS]
     steps:
       - run: echo prod

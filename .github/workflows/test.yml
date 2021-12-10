@@ -15,8 +15,11 @@ jobs:
   dev:
     if: github.event.inputs == null || github.event.inputs.environment == 'dev'
     runs-on: [self-hosted, Linux, AWS]
+    env:
+      ABC: '123'
     steps:
-      - run: echo dev
+      - uses: ./.github/actions/set-env-var
+      - run: echo "$ABC"
 
   staging:
     needs: dev
@@ -26,8 +29,11 @@ jobs:
         (github.event.inputs.environment == 'staging' && always())
       )
     runs-on: [self-hosted, Linux, AWS]
+    env:
+      ABC: 'abc'
     steps:
-      - run: exit 1
+      - uses: ./.github/actions/set-env-var
+      - run: echo "$ABC"
 
   prod:
     needs: staging
@@ -38,4 +44,5 @@ jobs:
       )
     runs-on: [self-hosted, Linux, AWS]
     steps:
-      - run: echo prod
+      - uses: ./.github/actions/set-env-var
+      - run: echo "$ABC"

@@ -1,0 +1,12 @@
+name: set-env-var
+description: set-env-var
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        echo "ABC=xyz" >> $GITHUB_ENV
+
+    - shell: bash
+      run: echo "$ABC"

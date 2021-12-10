@@ -17,7 +17,7 @@ jobs:
     if: github.event.inputs.environment == '' || github.event.inputs.environment == 'dev'
     runs-on: [self-hosted, Linux, AWS]
     steps:
-      - run: echo dev
+      - run: exit 1
 
   staging:
     needs: dev

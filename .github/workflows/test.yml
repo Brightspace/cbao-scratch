@@ -9,12 +9,12 @@ on:
         description: "which"
         required: false
         type: choice
-        default: ""
+        default: 'all'
         options: [dev, staging, prod]
 
 jobs:
   dev:
-    if: github.event.inputs.environment == '' || github.event.inputs.environment == 'dev'
+    if: github.event.inputs.environment == 'all' || github.event.inputs.environment == 'dev'
     runs-on: [self-hosted, Linux, AWS]
     steps:
       - run: echo dev
@@ -23,7 +23,7 @@ jobs:
     needs: dev
     if: |
       github.ref == 'refs/heads/main' && (
-        (github.event.inputs.environment == '' && needs.dev.result == 'success') ||
+        (github.event.inputs.environment == 'all' && needs.dev.result == 'success') ||
         (github.event.inputs.environment == 'staging' && always())
       )
     runs-on: [self-hosted, Linux, AWS]
@@ -34,7 +34,7 @@ jobs:
     needs: staging
     if: |
       github.ref == 'refs/heads/main' && (
-        (github.event.inputs.environment == '' && needs.staging.result == 'success') ||
+        (github.event.inputs.environment == 'all' && needs.staging.result == 'success') ||
         (github.event.inputs.environment == 'prod' && always())
       )
     runs-on: [self-hosted, Linux, AWS]

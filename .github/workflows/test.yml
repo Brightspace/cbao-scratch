@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on: [self-hosted, AWS, Linux]
+    runs-on: ubuntu-latest
     steps:
       - uses: Brightspace/third-party-actions@actions/checkout
       - run: echo success

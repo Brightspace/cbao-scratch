@@ -2,50 +2,10 @@ name: test
 
 on:
   push:
-  pull_request:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "which"
-        required: true
-        type: choice
-        options: [dev, staging, prod]
 
 jobs:
-  dev:
-    if: github.event.inputs == null || github.event.inputs.environment == 'dev'
-    runs-on: [self-hosted, Linux, AWS]
-    env:
-      ABC: '123'
+  test:
+    runs-on: [self-hosted, AWS, Linux]
     steps:
       - uses: Brightspace/third-party-actions@actions/checkout
-      - uses: ./.github/actions/set-env-var
-      - run: echo "$ABC"
-
-  staging:
-    needs: dev
-    if: |
-      github.ref == 'refs/heads/main' && (
-        (github.event.inputs == null && needs.dev.result == 'success') ||
-        (github.event.inputs.environment == 'staging' && always())
-      )
-    runs-on: [self-hosted, Linux, AWS]
-    env:
-      ABC: 'abc'
-    steps:
-      - uses: Brightspace/third-party-actions@actions/checkout
-      - uses: ./.github/actions/set-env-var
-      - run: echo "$ABC"
-
-  prod:
-    needs: staging
-    if: |
-      github.ref == 'refs/heads/main' && (
-        (github.event.inputs == null && needs.staging.result == 'success') ||
-        (github.event.inputs.environment == 'prod' && always())
-      )
-    runs-on: [self-hosted, Linux, AWS]
-    steps:
-      - uses: Brightspace/third-party-actions@actions/checkout
-      - uses: ./.github/actions/set-env-var
-      - run: echo "$ABC"
+      - run: echo ha

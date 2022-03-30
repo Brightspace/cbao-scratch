@@ -7,5 +7,5 @@ jobs:
   test:
     runs-on: [self-hosted, AWS, Linux]
     steps:
-      - uses: Brightspace/third-party-actions@actions/setup-python
-      - run: echo haha
+      - uses: Brightspace/third-party-actions@actions/checkout
+      - run: echo success
